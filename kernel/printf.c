@@ -25,6 +25,23 @@ static struct {
 
 static char digits[] = "0123456789abcdef";
 
+//lab4
+void backtrace()
+{
+  printf("backtrace:\n");
+  uint64 fp=r_fp();
+  uint64 min=PGROUNDDOWN(fp);
+  uint64 max=PGROUNDUP(fp);
+  while(fp>min&&fp<max)
+  {
+    //printf("itesme\n");
+    uint64 ret_addr= *(uint64*)(fp-0x8);
+    uint64 pre_fp = *(uint64*)(fp-0x10);
+    printf("%p\n",ret_addr);
+    fp=pre_fp;
+  }
+}
+
 static void
 printint(int xx, int base, int sign)
 {
