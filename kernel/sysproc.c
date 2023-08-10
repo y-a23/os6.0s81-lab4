@@ -17,12 +17,14 @@ uint64 sys_sigalarm(void)
   uint64 fn;
   if(argaddr(1,&fn)<0)return -1;
 
-  p->hander=(void (*)())fn;
+  p->handler=(void (*)())fn;
   return 0;
 }
 
 uint64 sys_sigreturn(void)
 {
+  *myproc()->trapframe=*myproc()->mytrapframe;
+  myproc()->iswait=0;
   return 0;
 }
 

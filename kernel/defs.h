@@ -9,6 +9,7 @@ struct sleeplock;
 struct stat;
 struct superblock;
 
+struct trapframe;
 //lab4
 void backtrace();
 // bio.c

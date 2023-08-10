@@ -66,13 +66,18 @@ usertrap(void)
 
     syscall();
   } else if((which_dev = devintr()) != 0){
-    if(which_dev == 2)
+    if(which_dev == 2&&p->iswait==0)
     {
       p->spend++;
       if(p->spend==p->alarm_interval)
       {
+        
+        *p->mytrapframe=*p->trapframe;
         p->spend=0;
-        p->trapframe->epc=(uint64)p->hander;
+        p->trapframe->epc=(uint64)p->handler;
+        
+        p->iswait=1;
+        
       }
     }
     // ok

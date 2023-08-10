@@ -106,6 +106,8 @@ struct proc {
 
   //lab4
   uint64 alarm_interval;
-  void (*hander)();
+  void (*handler)();
   uint64 spend;
+  struct trapframe *mytrapframe;
+  int iswait;
 };
