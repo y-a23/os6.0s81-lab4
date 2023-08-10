@@ -66,6 +66,15 @@ usertrap(void)
 
     syscall();
   } else if((which_dev = devintr()) != 0){
+    if(which_dev == 2)
+    {
+      p->spend++;
+      if(p->spend==p->alarm_interval)
+      {
+        p->spend=0;
+        p->trapframe->epc=(uint64)p->hander;
+      }
+    }
     // ok
   } else {
     printf("usertrap(): unexpected scause %p pid=%d\n", r_scause(), p->pid);

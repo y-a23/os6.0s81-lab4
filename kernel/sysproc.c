@@ -7,6 +7,25 @@
 #include "spinlock.h"
 #include "proc.h"
 
+uint64 sys_sigalarm(void)
+{
+  struct proc* p=myproc();
+  int n;
+  if(argint(0,&n)<0)return -1;
+  p->alarm_interval=n;
+
+  uint64 fn;
+  if(argaddr(1,&fn)<0)return -1;
+
+  p->hander=(void (*)())fn;
+  return 0;
+}
+
+uint64 sys_sigreturn(void)
+{
+  return 0;
+}
+
 uint64
 sys_exit(void)
 {
